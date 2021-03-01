@@ -1,0 +1,39 @@
+@use "sass:color";
+$search-color: #bdbdbd;
+
+header > div {
+    gap: 20px;
+}
+
+.search-bar {
+  button {
+    position: absolute;
+    margin: 6px 0 5px;
+    background-color: transparent;
+    border: none;
+  }
+
+  svg {
+    fill: $search-color;
+    &:hover {
+      fill: black;
+    }
+  }
+
+  input {
+    width: 265px;
+    height: 40px;
+    padding: 5px 5px 5px 30px;
+    border: 1px solid $search-color;
+    box-sizing: border-box;
+    box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    background-color: color.adjust($search-color, $lightness: +20%);
+
+    &:focus {
+      background-color: transparent;
+      border: 1px solid color.adjust($search-color, $lightness: -20%);
+      outline: none;
+    }
+  }
+}
