@@ -23,20 +23,29 @@ export const gallerySlice = createSlice({
       // Add images at the end for infinite scrolling
       state.value.concat(action.payload);
     },
+    removeImage: (state, action) => {
+      console.log(action.payload);
+      state.value = state.value.filter((image) => image.id !== action.payload);
+    },
   },
 });
 
-export const { replace, shiftNewImage, addNewPage } = gallerySlice.actions;
+export const {
+  replace,
+  shiftNewImage,
+  addNewPage,
+  removeImage,
+} = gallerySlice.actions;
 
 /**
  * Thunk to get all images
  * @param {String} query Name search query
  */
-export const getImages = (query="") => (dispatch) => {
+export const getImages = (query = "") => (dispatch) => {
   // TODO: API Call
   let images;
-  if(query && query.length > 0) {
-    images = dummyImages.filter(imageData => imageData.owner.includes(query));
+  if (query && query.length > 0) {
+    images = dummyImages.filter((imageData) => imageData.owner.includes(query));
   } else {
     images = dummyImages;
   }
@@ -58,10 +67,22 @@ export const getNewPage = (page) => (dispatch) => {
 
 export const addNewImage = (url, owner) => (dispatch) => {
   // TODO: API call
-  const imageData = {"url":url, "owner":owner};
+  const imageData = { id: new Date().now, url: url, owner: owner };
   setTimeout(() => {
     dispatch(shiftNewImage(imageData));
   }, 1000);
+};
+
+export const deleteImage = (imageId, password, callback) => (dispatch) => {
+  // TODO: API call
+  if (password === "password") {
+    setTimeout(() => {
+      dispatch(removeImage(imageId));
+    }, 1000);
+    callback(null);
+  } else {
+    callback("Invalid Password");
+  }
 };
 
 // The function below is called a selector and allows us to select a value from

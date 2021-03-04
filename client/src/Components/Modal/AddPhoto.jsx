@@ -42,7 +42,7 @@ function AddPhoto({ show, onClose, onSubmit }) {
         </Modal.Body>
         <Modal.Footer>
           <Button type="submit" variant="success">
-            Submit
+            Add
           </Button>
         </Modal.Footer>
       </Form>

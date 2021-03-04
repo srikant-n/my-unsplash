@@ -14,7 +14,6 @@ function Header({onClickAdd}) {
    * @param {Event} event Input changed event
    */
   function onChangeSearch(event) {
-    console.log(event.target);
     setSearch(event.target.value);
   }
 

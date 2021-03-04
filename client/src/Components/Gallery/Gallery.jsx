@@ -6,7 +6,7 @@ import { selectImages, getImages } from "./gallerySlice";
 import {DeleteIcon} from "../../images";
 import "./Gallery.scss";
 
-function Gallery() {
+function Gallery({onClickDelete}) {
   /**
    * Data of all the images to display
    */
@@ -34,6 +34,7 @@ function Gallery() {
             variant="none"
             className="m-0 p-0 align-self-end"
             value="delete"
+            onClick={()=>onClickDelete(imageData.id)}
           >
             <DeleteIcon className="delete-icon" role="img" aria-label="Delete Icon" />
           </Button>
