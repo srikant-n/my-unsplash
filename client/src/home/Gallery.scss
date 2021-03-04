@@ -1,0 +1,26 @@
+// @keyframes comeIn {
+//   0% {
+//     transform: scaleY(0);
+//   }
+//   85% {
+//     transform: scaleY(1.03);
+//   }
+//   100% {
+//     transform: scaleY(1);
+//   }
+// }
+
+// .xmasonry .xblock {
+//   animation: comeIn ease 0.4s;
+//   animation-iteration-count: 1;
+//   transition: left 0.2s ease, top 0.2s ease;
+// }
+
+.item > .item-overlay {
+  visibility: hidden;
+}
+
+.item:hover > .item-overlay {
+  visibility: visible;
+  background-color: rgba(0, 0, 0, 0.4);
+}
