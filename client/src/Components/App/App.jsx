@@ -11,6 +11,7 @@ function App() {
   const [showAddPhoto, setShowAddPhoto] = useState(false);
   const [showDeletePhoto, setShowDeletePhoto] = useState(false);
   const [currentImageId, setCurrentImageId] = useState(null);
+  const [isInvalidPassword, setIsInvalidPassword] = useState("");
 
   function onSubmitNewImage(url, name) {
     dispatch(addNewImage(url, name));
@@ -24,11 +25,12 @@ function App() {
   function onSubmitDelete(password) {
     if(currentImageId == null) return;
     dispatch(deleteImage(currentImageId, password, (error) => {
-      error ? console.log(error) : closeDeleteModal();
+      error ? setIsInvalidPassword(true) : closeDeleteModal();
     }));
   }
   
   function closeDeleteModal() {
+    setIsInvalidPassword(false);
     setShowDeletePhoto(false);
     setCurrentImageId(null);
   }
@@ -38,7 +40,7 @@ function App() {
       <Header onClickAdd={()=>setShowAddPhoto(true)} />
       <Gallery onClickDelete={onClickDelete} />
       <AddPhoto show={showAddPhoto} onClose={()=>setShowAddPhoto(false)} onSubmit={onSubmitNewImage} />
-      <DeletePhoto show={showDeletePhoto} onClose={closeDeleteModal} onSubmit={onSubmitDelete} />
+      <DeletePhoto show={showDeletePhoto} isInvalid={isInvalidPassword} onClose={closeDeleteModal} onSubmit={onSubmitDelete} />
     </div>
   );
 }

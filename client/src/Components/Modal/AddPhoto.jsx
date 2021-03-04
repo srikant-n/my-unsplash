@@ -2,10 +2,20 @@ import { React, useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import PropTypes from "prop-types";
 
+/**
+ * Modal with form asking for data to add new photo
+ * @param {Boolean} show Show modal?
+ * @param {CallableFunction} onClose Called on clicking close or outside the modal
+ * @param {CallableFunction} onSubmit Called on submitting password
+ */
 function AddPhoto({ show, onClose, onSubmit }) {
   const [url, setUrl] = useState("");
   const [name, setName] = useState("");
 
+  /**
+   * Photo data submitted
+   * @param {Event} event Photo detail submit event
+   */
   function submitPhoto(event) {
     event.preventDefault();
     onSubmit(url, name);

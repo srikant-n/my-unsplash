@@ -2,13 +2,35 @@ import { React, useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import PropTypes from "prop-types";
 
-function DeletePhoto({ show, onClose, onSubmit }) {
+/**
+ * Modal asking for password to delete photo
+ * @param {Boolean} show Show modal?
+ * @param {Boolean} isInvaid Is entered password invalid?
+ * @param {CallableFunction} onClose Called on clicking close or outside the modal
+ * @param {CallableFunction} onSubmit Called on submitting password
+ */
+function DeletePhoto({ show, isInvalid, onClose, onSubmit }) {
   const [password, setPassword] = useState("");
+  const [startedTyping, setStartedTyping] = useState(false);
 
+  /**
+   * Password field value changed
+   * @param {Event} event Password input value change event
+   */
+  function onChange(event) {
+    !startedTyping && event.target.value.length > 0 && setStartedTyping(true);
+    setPassword(event.target.value);
+  }
+
+  /**
+   * Confirm delete with password
+   * @param {Event} event Password submit event
+   */
   function submit(event) {
     event.preventDefault();
     onSubmit(password);
     setPassword("");
+    setStartedTyping(false);
   }
 
   return (
@@ -21,12 +43,16 @@ function DeletePhoto({ show, onClose, onSubmit }) {
           <Form.Group controlId="delete-password">
             <Form.Label>Password</Form.Label>
             <Form.Control
+              className={isInvalid && !startedTyping && "is-invalid"}
               type="password"
               required
               placeholder="Enter password"
               value={password}
-              onChange={(event) => setPassword(event.target.value)}
+              onChange={onChange}
             />
+            <Form.Control.Feedback type="invalid">
+              Invalid Password
+            </Form.Control.Feedback>
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
