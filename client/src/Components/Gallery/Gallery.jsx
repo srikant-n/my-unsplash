@@ -1,13 +1,27 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, Card } from "react-bootstrap";
 import { XMasonry, XBlock } from "react-xmasonry";
-import { selectImages } from "./gallerySlice";
+import { selectImages, getImages } from "./gallerySlice";
+import {DeleteIcon} from "../../images";
 import "./Gallery.scss";
 
 function Gallery() {
+  /**
+   * Data of all the images to display
+   */
   const images = useSelector(selectImages);
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(getImages());
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
+
+  /**
+   * Get a component to display Image
+   * @param {Object} imageData Image url and other required data
+   */
   function getImageCard(imageData) {
     return (
       <Card className="item m-2">
@@ -21,33 +35,17 @@ function Gallery() {
             className="m-0 p-0 align-self-end"
             value="delete"
           >
-            <DeleteIcon />
+            <DeleteIcon className="delete-icon" role="img" aria-label="Delete Icon" />
           </Button>
         </Card.ImgOverlay>
       </Card>
     );
   }
 
-  function DeleteIcon() {
-    return (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="red"
-        width="24px"
-        height="24px"
-      >
-        <path d="M0 0h24v24H0z" fill="none" />
-        <path d="M0 0h24v24H0V0z" fill="none" />
-        <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm2.46-7.12l1.41-1.41L12 12.59l2.12-2.12 1.41 1.41L13.41 14l2.12 2.12-1.41 1.41L12 15.41l-2.12 2.12-1.41-1.41L10.59 14l-2.13-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z" />
-      </svg>
-    );
-  }
-
   return (
-    <XMasonry >
-      {images.map((image) => {
-        return <XBlock>{getImageCard(image)}</XBlock>;
+    <XMasonry>
+      {images && images.map((image, index) => {
+        return <XBlock key={index}>{getImageCard(image)}</XBlock>;
       })}
     </XMasonry>
   );

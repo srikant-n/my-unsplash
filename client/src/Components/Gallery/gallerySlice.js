@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { images as dummyImages } from "../app/dummy";
+import { images as dummyImages } from "../dummy";
 
 export const gallerySlice = createSlice({
   name: "gallery",
@@ -17,7 +17,7 @@ export const gallerySlice = createSlice({
     },
     shiftNewImage: (state, action) => {
       // Add a new image to the start of the gallery
-      state.value.shift(action.payload);
+      state.value.unshift(action.payload);
     },
     addNewPage: (state, action) => {
       // Add images at the end for infinite scrolling
@@ -56,8 +56,9 @@ export const getNewPage = (page) => (dispatch) => {
   }, 1000);
 };
 
-export const addNewImage = (imageData) => (dispatch) => {
+export const addNewImage = (url, owner) => (dispatch) => {
   // TODO: API call
+  const imageData = {"url":url, "owner":owner};
   setTimeout(() => {
     dispatch(shiftNewImage(imageData));
   }, 1000);
