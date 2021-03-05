@@ -24,13 +24,13 @@ function App() {
 
   function onSubmitDelete(password) {
     if(currentImageId == null) return;
+    setIsInvalidPassword(false);
     dispatch(deleteImage(currentImageId, password, (error) => {
       error ? setIsInvalidPassword(true) : closeDeleteModal();
     }));
   }
   
   function closeDeleteModal() {
-    setIsInvalidPassword(false);
     setShowDeletePhoto(false);
     setCurrentImageId(null);
   }

@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import PropTypes from "prop-types";
 
@@ -12,6 +12,10 @@ import PropTypes from "prop-types";
 function DeletePhoto({ show, isInvalid, onClose, onSubmit }) {
   const [password, setPassword] = useState("");
   const [startedTyping, setStartedTyping] = useState(false);
+
+  useEffect(() => {
+    setPassword("");
+  }, [show]);
 
   /**
    * Password field value changed
@@ -29,7 +33,6 @@ function DeletePhoto({ show, isInvalid, onClose, onSubmit }) {
   function submit(event) {
     event.preventDefault();
     onSubmit(password);
-    setPassword("");
     setStartedTyping(false);
   }
 

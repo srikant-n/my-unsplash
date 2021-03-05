@@ -24,7 +24,6 @@ export const gallerySlice = createSlice({
       state.value.concat(action.payload);
     },
     removeImage: (state, action) => {
-      console.log(action.payload);
       state.value = state.value.filter((image) => image.id !== action.payload);
     },
   },
@@ -51,7 +50,7 @@ export const getImages = (query = "") => (dispatch) => {
   }
   setTimeout(() => {
     dispatch(replace(images));
-  }, 1000);
+  }, 100);
 };
 
 /**
@@ -62,27 +61,29 @@ export const getNewPage = (page) => (dispatch) => {
   // TODO: API call
   setTimeout(() => {
     dispatch(addNewPage([]));
-  }, 1000);
+  }, 100);
 };
 
 export const addNewImage = (url, owner) => (dispatch) => {
   // TODO: API call
-  const imageData = { id: new Date().now, url: url, owner: owner };
+  console.log(new Date().valueOf());
+  const imageData = { id: new Date().valueOf(), url: url, owner: owner };
+  console.log(imageData);
   setTimeout(() => {
     dispatch(shiftNewImage(imageData));
-  }, 1000);
+  }, 100);
 };
 
 export const deleteImage = (imageId, password, callback) => (dispatch) => {
   // TODO: API call
-  if (password === "password") {
-    setTimeout(() => {
+  setTimeout(() => {
+    if (password === "password") {
       dispatch(removeImage(imageId));
-    }, 1000);
-    callback(null);
-  } else {
-    callback("Invalid Password");
-  }
+      callback(null);
+    } else {
+      callback("Invalid Password");
+    }
+  }, 300);
 };
 
 // The function below is called a selector and allows us to select a value from

@@ -16,6 +16,13 @@
 //   transition: left 0.2s ease, top 0.2s ease;
 // }
 
+.xmasonry {
+ margin: -0.5em;
+}
+
+.item {
+  margin: 0.5em;
+}
 .item > .item-overlay {
   visibility: hidden;
 }
