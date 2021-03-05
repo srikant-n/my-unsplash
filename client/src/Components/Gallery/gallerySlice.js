@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { images as dummyImages } from "../dummy";
+import { getAllImages, getImages, addImage, deleteImageById } from "../../api"
 
 export const gallerySlice = createSlice({
   name: "gallery",
@@ -40,17 +40,12 @@ export const {
  * Thunk to get all images
  * @param {String} query Name search query
  */
-export const getImages = (query = "") => (dispatch) => {
-  // TODO: API Call
-  let images;
+export const getImagesData = (query = "") => async (dispatch) => {
   if (query && query.length > 0) {
-    images = dummyImages.filter((imageData) => imageData.owner.includes(query));
+    getImages(query).then(json => dispatch(replace(json)));
   } else {
-    images = dummyImages;
+    getAllImages().then(json => dispatch(replace(json)));
   }
-  setTimeout(() => {
-    dispatch(replace(images));
-  }, 100);
 };
 
 /**
@@ -65,25 +60,17 @@ export const getNewPage = (page) => (dispatch) => {
 };
 
 export const addNewImage = (url, owner) => (dispatch) => {
-  // TODO: API call
-  console.log(new Date().valueOf());
-  const imageData = { id: new Date().valueOf(), url: url, owner: owner };
-  console.log(imageData);
-  setTimeout(() => {
-    dispatch(shiftNewImage(imageData));
-  }, 100);
+  const imageData = { url: url, owner: owner };
+  addImage(imageData).then(json => dispatch(shiftNewImage(json)));
 };
 
 export const deleteImage = (imageId, password, callback) => (dispatch) => {
-  // TODO: API call
-  setTimeout(() => {
-    if (password === "password") {
+  deleteImageById(imageId, password)
+    .then(res => {
       dispatch(removeImage(imageId));
       callback(null);
-    } else {
-      callback("Invalid Password");
-    }
-  }, 300);
+    })
+    .catch(error => callback(error));
 };
 
 // The function below is called a selector and allows us to select a value from

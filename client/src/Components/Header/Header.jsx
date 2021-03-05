@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { getImages } from "../Gallery/gallerySlice";
+import { getImagesData } from "../Gallery/gallerySlice";
 import {Logo, SearchIcon} from "../../images";
 import "./Header.scss";
 
@@ -23,7 +23,7 @@ function Header({onClickAdd}) {
    */
   function onSubmitSearch(event) {
     event.preventDefault();
-    dispatch(getImages(search));
+    dispatch(getImagesData(search));
   }
   
   return (

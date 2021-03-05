@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Card } from "react-bootstrap";
 import { XMasonry, XBlock } from "react-xmasonry";
-import { selectImages, getImages } from "./gallerySlice";
+import { selectImages, getImagesData } from "./gallerySlice";
 import { DeleteIcon } from "../../images";
 import "./Gallery.scss";
 
@@ -14,7 +14,7 @@ function Gallery({onClickDelete}) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getImages());
+    dispatch(getImagesData());
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
 
