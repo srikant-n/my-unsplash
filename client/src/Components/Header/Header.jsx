@@ -29,7 +29,8 @@ function Header({onClickAdd}) {
   return (
     <header className="sticky-top bg-white py-3 d-flex flex-row justify-content-between">
       <div className="d-flex flex-row align-items-center justify-content-center">
-        <Logo role="img" aria-label="Logo" />
+        <Logo className="logo" role="img" aria-label="Logo" />
+        <Logo className="logo-mini" viewBox="0 0 24 26" role="img" aria-label="Logo" />
         <form id="search" className="search-bar" onSubmit={onSubmitSearch}>
           <button aria-label="Submit search">
             <SearchIcon role="img" aria-label="Search Icon" />
@@ -37,8 +38,9 @@ function Header({onClickAdd}) {
           <input type="text" placeholder="Search by name" aria-label="Search" value={search} onChange={onChangeSearch}/>
         </form>
       </div>
-      <Button className="add" variant="success" onClick={onClickAdd}>
-        Add a photo
+      <Button variant="success" onClick={onClickAdd}>
+        <span className="add-button-full">Add Photo</span>
+        <span className="add-button-mini">+</span>
       </Button>
     </header>
   );

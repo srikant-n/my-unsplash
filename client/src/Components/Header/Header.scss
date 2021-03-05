@@ -37,3 +37,53 @@ header > div {
     }
   }
 }
+
+.logo-mini {
+  display: none;
+  width: 24px;
+}
+
+/* Button text value toggle */
+.add-button-full {
+  display: block;
+}
+
+.add-button-mini {
+  line-height: 0;
+  font-size: 30px;
+  display: none;
+}
+/* End button text value toggle */
+
+@media (max-width: 700px) {
+  .search-bar {
+    margin-left: -24px;
+  }
+}
+
+@media (max-width: 600px) {
+  .search-bar {
+    margin-left: -5px;
+  }
+  .logo {
+    display: none;
+  }
+
+  .logo-mini {
+    display: block;
+  }
+}
+
+@media (max-width: 500px) {
+  .search-bar input {
+    width: 55vw;
+    max-width: 250px;
+  }
+  .add-button-full {
+    display: none;
+  }
+
+  .add-button-mini {
+    display: block;
+  }
+}
