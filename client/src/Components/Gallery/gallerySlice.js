@@ -24,7 +24,7 @@ export const gallerySlice = createSlice({
       state.value.concat(action.payload);
     },
     removeImage: (state, action) => {
-      state.value = state.value.filter((image) => image.id !== action.payload);
+      state.value = state.value.filter((image) => image._id !== action.payload);
     },
   },
 });

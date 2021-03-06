@@ -11,25 +11,41 @@ function App() {
   const [showAddPhoto, setShowAddPhoto] = useState(false);
   const [showDeletePhoto, setShowDeletePhoto] = useState(false);
   const [currentImageId, setCurrentImageId] = useState(null);
-  const [isInvalidPassword, setIsInvalidPassword] = useState("");
+  const [error, setError] = useState(null);
 
+  /**
+   * Clicked submit on add photo modal
+   * @param {String} url Image url
+   * @param {String} name Name of image's owner
+   */
   function onSubmitNewImage(url, name) {
     dispatch(addNewImage(url, name));
   }
 
+  /**
+   * Clicked delete button on the image
+   * @param {*} imageId Id of the image to be deleted
+   */
   function onClickDelete(imageId) {
     setCurrentImageId(imageId);
     setShowDeletePhoto(true);
   }
 
+  /**
+   * Clicked on submit in the delete modal to confirm deletion
+   * @param {String} password password to delete image
+   */
   function onSubmitDelete(password) {
     if(currentImageId == null) return;
-    setIsInvalidPassword(false);
+    setError(null);
     dispatch(deleteImage(currentImageId, password, (error) => {
-      error ? setIsInvalidPassword(true) : closeDeleteModal();
+      error ? setError(error) : closeDeleteModal();
     }));
   }
   
+  /**
+   * Hide the delete modal
+   */
   function closeDeleteModal() {
     setShowDeletePhoto(false);
     setCurrentImageId(null);
@@ -40,7 +56,7 @@ function App() {
       <Header onClickAdd={()=>setShowAddPhoto(true)} />
       <Gallery onClickDelete={onClickDelete} />
       <AddPhoto show={showAddPhoto} onClose={()=>setShowAddPhoto(false)} onSubmit={onSubmitNewImage} />
-      <DeletePhoto show={showDeletePhoto} isInvalid={isInvalidPassword} onClose={closeDeleteModal} onSubmit={onSubmitDelete} />
+      <DeletePhoto show={showDeletePhoto} errorMessage={error} onClose={closeDeleteModal} onSubmit={onSubmitDelete} />
     </div>
   );
 }

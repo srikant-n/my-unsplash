@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
  * @param {CallableFunction} onClose Called on clicking close or outside the modal
  * @param {CallableFunction} onSubmit Called on submitting password
  */
-function DeletePhoto({ show, isInvalid, onClose, onSubmit }) {
+function DeletePhoto({ show, errorMessage, onClose, onSubmit }) {
   const [password, setPassword] = useState("");
   const [startedTyping, setStartedTyping] = useState(false);
 
@@ -46,7 +46,7 @@ function DeletePhoto({ show, isInvalid, onClose, onSubmit }) {
           <Form.Group controlId="delete-password">
             <Form.Label>Password</Form.Label>
             <Form.Control
-              className={isInvalid && !startedTyping && "is-invalid"}
+              className={errorMessage && !startedTyping && "is-invalid"}
               type="password"
               required
               placeholder="Enter password"
@@ -54,7 +54,7 @@ function DeletePhoto({ show, isInvalid, onClose, onSubmit }) {
               onChange={onChange}
             />
             <Form.Control.Feedback type="invalid">
-              Invalid Password
+              {errorMessage}
             </Form.Control.Feedback>
           </Form.Group>
         </Modal.Body>

@@ -1,11 +1,28 @@
-const BASE_URL = "/images"
+const BASE_URL = "/images";
+
+/**
+ * Handle errors from Fetch
+ * @param {*} response Response from fetch
+ * @returns Error or response
+ */
+function handleErrors(response) {
+  if (!response.ok) {
+    // throw (response.statusText);
+    throw response.status;
+  }
+  return response;
+}
+
 /**
  * Get image data for all the images to display
  * @returns json array containing all images
  */
 async function getAllImages() {
-    const response = await fetch(BASE_URL);
-    return response.json();
+  const response = await fetch(BASE_URL)
+    .then(handleErrors)
+    .then((res) => res.json());
+
+  return response;
 }
 
 /**
@@ -14,45 +31,50 @@ async function getAllImages() {
  * @returns json array containing all images
  */
 async function getImages(search) {
-    const response = await fetch(BASE_URL + "/" + search);
-    return response.json();
+  const response = await fetch(BASE_URL + "/" + search)
+    .then(handleErrors)
+    .then((res) => res.json());
+
+  return response;
 }
 
+/**
+ * Add a new image to the gallery
+ * @param {url,owner} image Image data for the image to add
+ * @returns Image data from server with id and date added
+ */
 async function addImage(image) {
-    try {
-        const response = await fetch(BASE_URL, {
-            method: 'POST',
-            // credentials: 'same-origin', // include, *same-origin, omit
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            redirect: 'follow', // manual, *follow, error
-            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-            body: JSON.stringify(image) // body data type must match "Content-Type" header
-          });
-          return response.json(); // parses JSON response into native JavaScript objects
-    } catch(error){console.log(error)};
-  
+  const response = await fetch(BASE_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(image),
+  })
+    .then(handleErrors)
+    .then((res) => res.json());
+
+  return response;
 }
 
+/**
+ * Delete an image
+ * @param {String} id Image id of the image to be deleted
+ * @param {String} password Entered password
+ * @returns true if deleted
+ */
 async function deleteImageById(id, password) {
-    // Default options are marked with *
-    try {
-        const response = await fetch(BASE_URL + "/" + id, {
-            method: 'DELETE',
-            // credentials: 'same-origin', // include, *same-origin, omit
-            headers: {
-              'Content-Type': 'text/plain'
-            },
-            redirect: 'follow', // manual, *follow, error
-            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-            body: password // body data type must match "Content-Type" header
-          });
-          return response.json(); // parses JSON response into native JavaScript objects
-    } catch (error){
-        return error;
-    }
-  
+  const response = await fetch(BASE_URL + "/" + id, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "text/plain",
+    },
+    body: password, // body data type must match "Content-Type" header
+  })
+    .then(handleErrors)
+    .then((res) => res.json());
+
+  return response;
 }
 
-export {getAllImages, getImages, addImage, deleteImageById};
+export { getAllImages, getImages, addImage, deleteImageById };

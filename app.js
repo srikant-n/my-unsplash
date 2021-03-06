@@ -1,22 +1,25 @@
+require('dotenv').config();
 const path = require('path');
 const express = require('express');
 const router = require("./src/routes");
+const mongoose = require("mongoose");
 
 const port = process.env.PORT || 5000;
 const app = express();
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-// app.use(express.static(path.join(__dirname, 'client', 'build')));
+app.use(express.static(path.join(__dirname, 'client', 'build')));
 
-// app.get("/", (req, res) => {
-//   res.sendFile("./client/build/index.html");
-// });
+mongoose.connect(process.env.DB_PATH, { useNewUrlParser: true })
+  .then(() => console.log('connection succesful'))
+  .catch((err) => console.error(err));
 
-//the request having /user/ will be send to the userRoutes module.  
-//in that the rquest will be directed to the specific route.   
+//the request having /images/ will be sent to the routes module.  
 app.use('/images', router);
+
+app.get('/', (req,res)=>{
+  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+});
 
 app.listen(port, () => {
   // eslint-disable-next-line no-console

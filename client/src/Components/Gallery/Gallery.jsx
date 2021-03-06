@@ -34,7 +34,7 @@ function Gallery({onClickDelete}) {
             variant="none"
             className="m-0 p-0 align-self-end"
             value="delete"
-            onClick={()=>onClickDelete(imageData.id)}
+            onClick={()=>onClickDelete(imageData._id)}
           >
             <DeleteIcon className="delete-icon" role="img" aria-label="Delete Icon" />
           </Button>

@@ -10,8 +10,8 @@ let images = [
     {
         id: 1,
         url:
-            "https://images.pexels.com/photos/1152237/pexels-photo-1152237.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-        owner: "Lisa Fotios",
+            "https://images.pexels.com/photos/196643/pexels-photo-196643.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        owner: "picjumbo.com",
         tag: "food",
         date: "2020-02-02",
     },
@@ -81,36 +81,31 @@ let images = [
     },
 ];
 
+const model = require("./model");
+
 const imageController = {
     getAllImages(req,res) { // Get all the images
-        res.send(images);
+        model.getAllImages((err, images) => err ? res.send(err) : res.send(images));
     },
     getImages(req, res) { // Get images based on search query
-        let data;
         if (req.params.search) {
-            data = images.filter((image) => image.owner.includes(req.params.search));
+            model.getImages(req.params.search, (err,images) => err ? res.send(err) : res.send(images));
         } else {
-            data = images;
+            model.getAllImages((err, images) => err ? res.send(err) : res.send(images));
         }
-        res.send(data);
     },
     addImage(req, res) { // Add new image
         const imageData = {
-            id: new Date().valueOf(),
             url: req.body.url,
             owner: req.body.owner,
         };
-        images.unshift(imageData);
-        res.send(imageData);
+        model.addImage(imageData, (err, data) => err ? res.send(err) : res.send(data));
     },
     deleteImage(req, res) { // Delete an image if the password is right
-        console.log(req.params);
-        if (req.body === "password") {
-            images = images.filter((image) => image.id != req.params.imageId);
-            res.send(true);
-            console.log(images);
+        if (req.body) {
+            model.deleteImage(req.params.imageId, req.body, (err, data) => err ? res.status(401).send("Invalid Password") : (data.deletedCount > 0 ? res.send(data) : res.status(400).send("Image Not Found")));
         } else {
-            res.status(401).send("Invalid Password"); 
+            res.status(401).send("Enter Password"); 
         }
     },
 };
