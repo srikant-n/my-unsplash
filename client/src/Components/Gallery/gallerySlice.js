@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllImages, getImages, addImage, deleteImageById } from "../../api"
+import { getAllImages, getImages, addImage, deleteImageById } from "../../api";
 
 export const gallerySlice = createSlice({
   name: "gallery",
@@ -40,11 +40,11 @@ export const {
  * Thunk to get all images
  * @param {String} query Name search query
  */
-export const getImagesData = (query = "") => async (dispatch) => {
+export const getImagesData = (query = "") => (dispatch) => {
   if (query && query.length > 0) {
-    getImages(query).then(json => dispatch(replace(json)));
+    return getImages(query).then((json) => dispatch(replace(json)));
   } else {
-    getAllImages().then(json => dispatch(replace(json)));
+    return getAllImages().then((json) => dispatch(replace(json)));
   }
 };
 
@@ -61,16 +61,19 @@ export const getNewPage = (page) => (dispatch) => {
 
 export const addNewImage = (url, owner) => (dispatch) => {
   const imageData = { url: url, owner: owner };
-  addImage(imageData).then(json => dispatch(shiftNewImage(json)));
+  return addImage(imageData).then((json) => dispatch(shiftNewImage(json)));
 };
 
 export const deleteImage = (imageId, password, callback) => (dispatch) => {
-  deleteImageById(imageId, password)
-    .then(res => {
+  return deleteImageById(imageId, password)
+    .then((res) => {
       dispatch(removeImage(imageId));
       callback(null);
     })
-    .catch(error => callback(error));
+    .catch((error) => {
+      const errorMessage = error === 401 ? "Invalid Password" : "Something went wrong";
+      callback(errorMessage);
+    });
 };
 
 // The function below is called a selector and allows us to select a value from

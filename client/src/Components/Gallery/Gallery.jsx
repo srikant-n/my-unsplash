@@ -1,22 +1,16 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import { Button, Card } from "react-bootstrap";
 import { XMasonry, XBlock } from "react-xmasonry";
-import { selectImages, getImagesData } from "./gallerySlice";
+import { selectImages } from "./gallerySlice";
 import { DeleteIcon } from "../../images";
 import "./Gallery.scss";
 
-function Gallery({onClickDelete}) {
+function Gallery({ onClickDelete }) {
   /**
    * Data of all the images to display
    */
   const images = useSelector(selectImages);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getImagesData());
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]);
 
   /**
    * Get a component to display Image
@@ -34,9 +28,13 @@ function Gallery({onClickDelete}) {
             variant="none"
             className="m-0 p-0 align-self-end"
             value="delete"
-            onClick={()=>onClickDelete(imageData._id)}
+            onClick={() => onClickDelete(imageData._id)}
           >
-            <DeleteIcon className="delete-icon" role="img" aria-label="Delete Icon" />
+            <DeleteIcon
+              className="delete-icon"
+              role="img"
+              aria-label="Delete Icon"
+            />
           </Button>
         </Card.ImgOverlay>
       </Card>
@@ -45,9 +43,10 @@ function Gallery({onClickDelete}) {
 
   return (
     <XMasonry targetBlockWidth={340}>
-      {images && images.map((image, index) => {
-        return <XBlock key={index}>{getImageCard(image)}</XBlock>;
-      })}
+      {images &&
+        images.map((image, index) => {
+          return <XBlock key={index}>{getImageCard(image)}</XBlock>
+})}
     </XMasonry>
   );
 }

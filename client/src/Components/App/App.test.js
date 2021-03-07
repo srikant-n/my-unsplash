@@ -1,15 +1,18 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import store from './app/store';
+import store from '../../store';
 import App from './App';
 
-test('renders learn react link', () => {
+test('Add photo modal is opened on clicking on add photo', () => {
   const { getByText } = render(
     <Provider store={store}>
       <App />
     </Provider>
   );
 
-  expect(getByText(/learn/i)).toBeInTheDocument();
+  const button = getByText("Add Photo");
+  fireEvent.click(button);
+  // Expect Add Photo modal
+  expect(getByText("Add a new photo")).toBeInTheDocument();
 });

@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Gallery from "../Gallery/Gallery";
 import Header from "../Header";
 import { AddPhoto, DeletePhoto } from "../Modal";
-import { addNewImage, deleteImage } from "../Gallery/gallerySlice";
+import { getImagesData, addNewImage, deleteImage } from "../Gallery/gallerySlice";
 import "./App.scss";
 
 function App() {
@@ -12,6 +12,11 @@ function App() {
   const [showDeletePhoto, setShowDeletePhoto] = useState(false);
   const [currentImageId, setCurrentImageId] = useState(null);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    dispatch(getImagesData());
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
 
   /**
    * Clicked submit on add photo modal

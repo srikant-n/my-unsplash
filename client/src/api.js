@@ -18,10 +18,11 @@ function handleErrors(response) {
  * @returns json array containing all images
  */
 async function getAllImages() {
+  console.log("getall");
   const response = await fetch(BASE_URL)
     .then(handleErrors)
     .then((res) => res.json());
-
+console.log(response);
   return response;
 }
 
@@ -69,7 +70,7 @@ async function deleteImageById(id, password) {
     headers: {
       "Content-Type": "text/plain",
     },
-    body: password, // body data type must match "Content-Type" header
+    body: password,
   })
     .then(handleErrors)
     .then((res) => res.json());
