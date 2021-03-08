@@ -37,7 +37,7 @@
 
 ## Overview
 
-#![screenshot](screenshot.png)
+![screenshot](screenshot.png)
 
 It's my first full MERN stack app. Working with redux slice was new to me, but it was easy to implement with their example. I tried to use a proper structure for this project. Bootstrap really made the modals easy to implement. I felt Masonry would have been easier to implement on vanilla JS than React, I couldn't get it to place images based on size rather than count, ended up using XMasonry package.
 
