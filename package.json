@@ -1,7 +1,7 @@
 {
   "name": "my-unsplash",
   "version": "1.0.0",
-  "description": "",
+  "description": "Unsplash like website using React-Redux, Express and MongoDB",
   "main": "app.js",
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -12,7 +12,7 @@
     "mongoose": "^5.11.18"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "set NODE_ENV=test && nodemon --exec mocha */**.test.js",
     "start": "nodemon app.js",
     "server": "node app.js"
   },
@@ -31,5 +31,10 @@
   "bugs": {
     "url": "https://github.com/srikant-n/my-unsplash/issues"
   },
-  "homepage": "https://github.com/srikant-n/my-unsplash#readme"
+  "homepage": "https://github.com/srikant-n/my-unsplash#readme",
+  "devDependencies": {
+    "chai": "^4.3.3",
+    "mocha": "^8.3.1",
+    "supertest": "^6.1.3"
+  }
 }
