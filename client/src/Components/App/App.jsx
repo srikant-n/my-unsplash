@@ -5,6 +5,7 @@ import Header from "../Header";
 import { AddPhoto, DeletePhoto } from "../Modal";
 import { getImagesData, addNewImage, deleteImage } from "../Gallery/gallerySlice";
 import "./App.scss";
+import Footer from "../Footer/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -62,6 +63,7 @@ function App() {
       <Gallery onClickDelete={onClickDelete} />
       <AddPhoto show={showAddPhoto} onClose={()=>setShowAddPhoto(false)} onSubmit={onSubmitNewImage} />
       <DeletePhoto show={showDeletePhoto} errorMessage={error} onClose={closeDeleteModal} onSubmit={onSubmitDelete} />
+      <Footer />
     </div>
   );
 }
