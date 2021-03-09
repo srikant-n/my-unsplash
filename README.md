@@ -105,7 +105,7 @@ $ npm start
 - [Mongoose](https://www.npmjs.com/package/mongoose)
 - [dotenv](https://www.npmjs.com/package/dotenv)
 - [body-parser](https://www.npmjs.com/package/body-parser)
-- [SuperTest[(https://www.npmjs.com/package/supertest)
+- [SuperTest](https://www.npmjs.com/package/supertest)
 - [fetch-mock-jest](https://www.npmjs.com/package/fetch-mock-jest)
 - [redux-mock-store](https://www.npmjs.com/package/redux-mock-store)
 
