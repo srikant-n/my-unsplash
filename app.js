@@ -13,8 +13,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'client', 'build')));
 
 const dbPath = env === "production" ? process.env.DB_PATH :  (env==="development" ? process.env.DB_PATH_DEV : process.env.DB_PATH_TEST);
-
-mongoose.connect(process.env.DB_PATH, { useNewUrlParser: true })
+console.log(dbPath);
+mongoose.connect(dbPath, { useNewUrlParser: true })
   .then(() => console.log('DB: Connected'))
   .catch((err) => console.error(err));
 
