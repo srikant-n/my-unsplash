@@ -85,6 +85,9 @@ $ git clone https://github.com/srikant-n/my-unsplash.git
 # Install dependencies
 $ npm install
 
+# Define db path in a .env file
+DB_PATH_DEV=set/path/to/db/here
+
 # Run the app
 $ npm start
 
